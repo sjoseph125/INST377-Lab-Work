@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-plusplus */
 /* eslint-disable linebreak-style */
 const grid = document.querySelector('.grid');
@@ -153,7 +154,7 @@ function moveRight() {
   }
   isGoingRight = true;
   rightTimerId = setInterval(() => {
-    if (doodlerLeftSpace < 340) {
+    if (doodlerLeftSpace <= 340) {
       doodlerLeftSpace += 5;
       doodler.style.left = `${doodlerLeftSpace}px`;
     } else moveLeft();
