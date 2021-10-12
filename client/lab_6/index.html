@@ -1,45 +1,51 @@
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samson Joseph's Lab 7</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
-      crossorigin="anonymous">
-    </script>
-</head>
-<body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+  </head>
+  <body>
     <div class="wrapper">
-
-        <div class="container flex-outer">
-
-            <!-- <div class="flex-outer"> -->
-            <div class="header">
-                <h1>Samson Joseph's Lab 7</h1>
+        <div class="container">
+            <div class="box is-size-4 has-background-warning">Samson's Lab 5</div>
+            <div class="columns columns is-multiline is-mobile">
+                <div class="column is-two-fifths">
+                    <div class="box is-size-3">
+                        <form class="speaker-form">
+                            <div class="field has-addons has-addons-centered">
+                                <label for="fname" class="label mr-5">Search </label>
+                                <div class="control">
+                                    <input type="text" name="fname" id="fname" class="search" />
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- <div class="columns is-mobile"> -->
             </div>
-            
+            <div class="results">
+                <div class="columns">
+                    <div class="column is-two-fifths">
+                        <div class="box is-size-3">
+                        <ul class="suggestions">
+                                    <!-- <li></li> -->
+                                    <!-- <li></li> -->
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- </div> -->
-            <div id="chartContainer"></div>
-            <form>
-                <button
-                    type="submit"
-                    class="submitButton"
-                    name="submitButton"
-                >Where Should I Eat</button>
-            </form>
         </div>
-
-        <!-- <div class="flex-inner"> -->
-            
-        <!-- </div> -->
-
-        
-
     </div>
-    <script src="canvasjs.min.js"></script>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

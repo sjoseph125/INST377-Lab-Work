@@ -26,20 +26,7 @@ function createDoodler() {
   doodler.style.bottom = `${doodlerBottomSpace}px`;
 }
 
-class Platform {
-  constructor(newPlatBottom) {
-    this.bottom = newPlatBottom;
-    this.left = Math.random() * 315;
-    this.visual = document.createElement('div');
 
-    const {visual} = this;
-    visual.classList.add('platform');
-    visual.style.left = `${this.left}px`;
-    visual.style.bottom = `${this.bottom}px`;
-
-    grid.appendChild(visual);
-  }
-}
 
 function createPlatforms() {
   for (let i = 0; i < platformCount; i++) {
@@ -111,6 +98,21 @@ function fall() {
   }, 30);
 }
 
+class Platform {
+  constructor(newPlatBottom) {
+    this.bottom = newPlatBottom;
+    this.left = Math.random() * 315;
+    this.visual = document.createElement('div');
+
+    const {visual} = this;
+    visual.classList.add('platform');
+    visual.style.left = `${this.left}px`;
+    visual.style.bottom = `${this.bottom}px`;
+
+    grid.appendChild(visual);
+  }
+}
+
 function gameOver() {
   console.log('game over');
   isGameOver = true;
@@ -170,6 +172,7 @@ function moveStraight() {
 
 function start() {
   if (!isGameOver) {
+    console.log('test')
     createPlatforms();
     createDoodler();
     setInterval(movePlatforms, 30);

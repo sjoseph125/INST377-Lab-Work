@@ -1,4 +1,14 @@
-/*CSS*/
+.first {
+  /* font-size: 14px;
+  margin-left: 10px; */
+  list-style-type: circle;
+}
+li{
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+/* CSS
 body {
     background: #eee;
   }
@@ -104,5 +114,5 @@ body {
       height: 500px;
       width: 100%;
       margin-bottom: 15px;
-  }
+  } */
   

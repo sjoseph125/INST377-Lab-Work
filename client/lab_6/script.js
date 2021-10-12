@@ -1,83 +1,74 @@
+/* eslint-disable arrow-body-style */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-shadow */
+/* eslint-disable semi */
+/* eslint-disable no-unused-vars */
 /* eslint-disable linebreak-style */
 // /* eslint-disable no-console */
 // /* eslint-disable no-plusplus */
 // /* eslint-disable object-curly-newline */
 // /* eslint-disable no-unused-vars */
 // /* eslint-disable linebreak-style */
-function convertRestaurantsToCategories(restaurantList) {
-    // process your restaurants here!
-    const newDataShape = restaurantList.reduce((collection, item, i) => {
-      const findCat = collection.find((findItem) => findItem.label == item.category);
-  
-      if (!findCat) {
-        collection.push({
-          label: item.category,
-          y: 1
-        });
-      } else {
-        findCat.y += 1;
+
+async function windowActions() {
+  const endpoint = 'https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json'
+
+  // const array = []
+  const request = await fetch(endpoint)
+  const array = await request.json()
+  // array.push(...data)
+  // console.log(array)
+
+  function findMatches (wordToMatch, array) {
+    return array.filter((place) => {
+      const regex = new RegExp(wordToMatch, 'gi')
+      console.log(wordToMatch.length)
+      if (wordToMatch.length > 0) {
+        return place.name.match(regex)
+              || place.category.match(regex)
+              || place.address_line_1.match(regex)
+              || place.city.match(regex)
+              || place.zip.match(regex)
       }
-  
-      return collection;
-    }, []);
-    return newDataShape;
-  }
-  
-  function makeYourOptionsObject(datapointsFromRestaurantsList) {
-    console.log(datapointsFromRestaurantsList);
-    // set your chart configuration here!
-    CanvasJS.addColorSet('customColorSet1', ['#35EB87', '#F0DE1D', '#D95B25', '#AA1DF0', '#1CB1E6',
-      '#EBB636', '#F08D1D', '#D95B25', '#F0B3AF', '#E61C8F']);
-    return {
-      animationEnabled: true,
-      colorSet: 'customColorSet1',
-      title: {
-        text: 'Places To Eat Out In Future'
-      },
-      axisX: {
-        interval: 1,
-        labelFontSize: 12
-      },
-      axisY2: {
-        interlacedColor: 'rgba(1,77,101,.2)',
-        gridColor: 'rgba(1,77,101,.1)',
-        title: 'Restaurants By Category',
-        labelFontSize: 12,
-        scaleBreaks: {customBreaks: [{startValue: 40, endValue: 50, color: 'black'}, {startValue: 85, endValue: 100, color: 'black'}, {startValue: 140, endValue: 175, color: 'black'}]}
-      },
-      data: [{
-        type: 'bar',
-        name: 'restaurants',
-        axisYType: 'secondary',
-        dataPoints: datapointsFromRestaurantsList
-      }]
-    };
-  }
-  function runThisWithResultsFromServer(jsonFromServer) {
-    console.log('jsonFromServer', jsonFromServer);
-    sessionStorage.setItem('restaurantList', JSON.stringify(jsonFromServer)); // don't mess with this, we need it to provide unit testing support
-    // Process your restaurants list
-    // Make a configuration object for your chart
-    // Instantiate your chart
-    const reorganizedData = convertRestaurantsToCategories(jsonFromServer);
-    const options = makeYourOptionsObject(reorganizedData);
-    const chart = new CanvasJS.Chart('chartContainer', options);
-    chart.render();
-  }
-  // Leave lines 52-67 alone; do your work in the functions above
-  document.body.addEventListener('submit', async (e) => {
-    e.preventDefault(); // this stops whatever the browser wanted to do itself.
-    const form = $(e.target).serializeArray();
-    fetch('/api', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(form)
+      // return null
     })
-      .then((fromServer) => fromServer.json())
-      .then((jsonFromServer) => runThisWithResultsFromServer(jsonFromServer))
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+  }
+
+  function displayMatches(event) {
+    const matchArray = findMatches(event.target.value, array)
+    // console.log(matchArray)
+    const html = matchArray.map((place) => {
+      return `
+        
+        <li class = first>
+          <span class = "name is-size-6"> ${place.name}<span>
+        </li>
+        <li>
+          <span class = "name is-size-6"> ${place.category}<span>
+        </li>
+        <li>
+          <span class = "name is-size-6"> ${place.address_line_1}<span>
+        </li>
+        <li>
+          <span class = "name is-size-6"> ${place.city}<span>
+        </li>
+        <li>
+          <span class = "name is-size-6"> ${place.zip}<span>
+        </li> <br>
+      
+      `;
+    }).join('');
+    // console.log(html)
+    suggestions.innerHTML = html;
+  }
+
+  const searchInput = document.querySelector('.search')
+  const suggestions = document.querySelector('.suggestions')
+  const boxy = document.querySelector('.boxy')
+
+  searchInput.addEventListener('change', (event) => { displayMatches(event) })
+  searchInput.addEventListener('keyup', (event) => { displayMatches(event) })
+}
+
+window.onload = windowActions
