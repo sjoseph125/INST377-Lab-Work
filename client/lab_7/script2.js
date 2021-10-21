@@ -23,8 +23,22 @@ async function windowActions() {
     accessToken: 'pk.eyJ1Ijoic2Ftc29uam9zZXBoMjUiLCJhIjoiY2t1b2Y0OGoxMDRvZjJva2IzYzVlemJ6dSJ9.jkhey_GJUGycclVWyny8JA'
   }).addTo(mymap);
   //   let matchArray2 = []
-  const request = await fetch(endpoint)
-  const array = await request.json()
+
+  function toggleSpanVisibility(evt) {
+    const button = evt.target;
+    const target = document
+  }
+
+  async function fetchRequest(url) {
+    try {
+      const request = await fetch(endpoint)
+      const array = await request.json()
+      return array
+    } catch (err) {
+      console.error(err)
+      return err
+    }
+  }
   // array.push(...data)
   // console.log(array)
 
@@ -76,8 +90,9 @@ async function windowActions() {
             
             <span class = "name is-size-6"> ${place.zip}<span>
             
-          </li> <br>
+          </li> 
         </div>
+        <div class = "space"></div>
         `;
     }).join('');
     suggestions.innerHTML = html;

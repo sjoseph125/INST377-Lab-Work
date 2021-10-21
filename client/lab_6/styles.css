@@ -1,12 +1,13 @@
-.first {
-  /* font-size: 14px;
-  margin-left: 10px; */
-  list-style-type: circle;
-}
-li{
+/* .first {
   font-size: 14px;
   margin-left: 10px;
-}
+  list-style-type: none;
+}*/
+li{
+  list-style: none;
+  font-size: 14px;
+  margin-left: 10px;
+} 
 
 /* CSS
 body {
@@ -114,5 +115,11 @@ body {
       height: 500px;
       width: 100%;
       margin-bottom: 15px;
-  } */
+  } 
+
+  li{
+    list-style: none;
+    font-size: 14px;
+    margin-left: 10px;
+  }
   
