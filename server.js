@@ -1,19 +1,25 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-console */
 import express from 'express';
+import labRoutes from './server/labRoutes.js';
+import apiRoutes from './server/routes/apiRoutes.js';
 import reload from 'livereload';
 import connectReload from 'connect-livereload';
-import apiRoutes from './server/routes/apiRoutes.js';
+import dotenv from 'dotenv';
+import path from 'path';
 
+dotenv.config();
+const __dirname = path.resolve();
 // import db from './server/database/initializeDB.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const staticFolder = 'client';
+let liveReloadServer;
 
 // Add some auto-reloading to our server
 if (process.env.CONTEXT === 'development') {
-  const liveReloadServer = reload.createServer();
+  liveReloadServer = reload.createServer();
   liveReloadServer.watch(path.join(__dirname, staticFolder));
 }
 
@@ -27,15 +33,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static(staticFolder));
+// app.use('/template', labRoutes);
 app.use('/api', apiRoutes);
 
 async function bootServer() {
   try {
-    // Turn these back on in later labs
-    // const mysql = await db.sequelizeDB;
-    // await mysql.sync();
     app.listen(PORT, () => {
+      // Turn these back on in later labs
+      // const mysql = await db.sequelizeDB;
+      // await mysql.sync();
       console.log(`Listening on: http//localhost:${PORT}`);
+      console.log(`environment:`, process.env.CONTEXT);
     });
   } catch (err) {
     console.error(err);
